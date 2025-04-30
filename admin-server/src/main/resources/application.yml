@@ -1,11 +1,14 @@
 spring:
   application:
     name: admin-server
-  profiles:
-    active: local
   datasource:
     url: jdbc:mysql://localhost:3306/sample
     username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 server:
   port: 8080
+kafka:
+  cluster1:
+    bootstrap-servers: localhost:9092
+  cluster2:
+    bootstrap-servers: localhost:9092

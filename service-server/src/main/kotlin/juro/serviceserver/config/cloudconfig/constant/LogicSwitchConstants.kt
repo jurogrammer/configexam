@@ -1,4 +1,4 @@
-package juro.adminserver.properties.model
+package juro.serviceserver.config.cloudconfig.constant
 
 object LogicSwitchConstants {
     // Spring Cloud에서 default application-name으로 사용. 반드시 조회

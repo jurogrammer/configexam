@@ -16,8 +16,10 @@ import org.springframework.stereotype.Service
 @Service
 class PropertyService(
     private val repository: PropertyRepository,
-    private val kafkaTemplate: KafkaTemplate<String, String>
+    private val cluster1KafkaTemplate: KafkaTemplate<String, String>,
+    private val cluster2KafkaTemplate: KafkaTemplate<String, String>,
 ) {
+    private val objectMapper = ObjectMapper()
     fun getProperty(id: Long): PropertyResponse {
         val property = repository.findById(id).orElseThrow()
         return PropertyResponse.of(property)
@@ -52,12 +54,13 @@ class PropertyService(
     fun refresh(request: CloudConfigRefreshRequest) {
         val versionProperties = getAllVersionOfModules(request.deployPhase)
         val changeEvent = PropertiesChangeEvent.of(request, versionProperties)
-        val messageHeaders = MessageHeaders(mapOf(KafkaHeaders.TOPIC to "refresh-properties"))
+        val messageHeaders = MessageHeaders(mapOf(KafkaHeaders.TOPIC to LogicSwitchConstants.KAFKA_TOPIC))
 
-        val objectMapper = ObjectMapper()
         val kafkaMessage = objectMapper.writeValueAsString(changeEvent)
         val message = MessageBuilder.createMessage(kafkaMessage, messageHeaders)
-        kafkaTemplate.send(message)
+
+        cluster1KafkaTemplate.send(message)
+        cluster2KafkaTemplate.send(message)
     }
 
     fun getAllVersionOfModules(deployPhase: String): List<Property> {

@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: service-server
+  config:
+    activate:
+      on-profile: local, dev, default
+  cloud:
+    config:
+      uri: http://localhost:9998,http://localhost:9999
+      request-connect-timeout: 3000
+      request-read-timeout: 3000
+      retry:
+        max-attempts: 3

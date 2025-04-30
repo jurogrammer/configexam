@@ -1,14 +1,15 @@
 spring:
   application:
     name: cloud-config-server
+  profiles:
+    include: jdbc
   cloud:
     config:
       server:
         jdbc:
           sql: SELECT property_key, property_value FROM properties WHERE application = ? AND profile=? AND label=?
           order: 0
-  profiles:
-    active: local
+          enabled: true
   datasource:
     url: jdbc:mysql://localhost:3306/sample
     username: root

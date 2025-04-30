@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: service-server
+
+switchable:
+  feature-on: false
+  some-base-url: http://localhost:8082
+  kafka-bootstrap-server: localhost:9092
+kafka:
+  cluster1:
+    bootstrap-servers: localhost:9092
+  cluster2:
+    bootstrap-servers: localhost:9092
