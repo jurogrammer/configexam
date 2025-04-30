@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class AdminserverApplication
+class AdminServerApplication
 
 fun main(args: Array<String>) {
-    runApplication<AdminserverApplication>(*args)
+    runApplication<AdminServerApplication>(*args)
 }
