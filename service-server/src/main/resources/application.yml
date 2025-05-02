@@ -8,6 +8,6 @@ switchable:
   kafka-bootstrap-server: localhost:9092
 kafka:
   cluster1:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: kafka1:9092
   cluster2:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: kafka2:9093

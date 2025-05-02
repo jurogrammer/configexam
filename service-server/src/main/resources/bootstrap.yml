@@ -6,7 +6,7 @@ spring:
       on-profile: local, dev, default
   cloud:
     config:
-      uri: http://localhost:9998,http://localhost:9999
+      uri: http://cloud-config-server1:8888,http://cloud-config-server2:8889
       request-connect-timeout: 3000
       request-read-timeout: 3000
       retry:

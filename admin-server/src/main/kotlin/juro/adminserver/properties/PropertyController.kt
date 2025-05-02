@@ -39,7 +39,7 @@ class PropertyController(
         propertyService.deleteProperty(id)
     }
 
-    @PostMapping("/v1/refresh")
+    @PostMapping("/v1/properties/refresh")
     fun refreshProperties(@RequestBody apiRequest: CloudConfigRefreshRequest) {
         propertyService.refresh(apiRequest)
     }

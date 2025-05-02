@@ -2,13 +2,13 @@ spring:
   application:
     name: admin-server
   datasource:
-    url: jdbc:mysql://localhost:3306/sample
+    url: jdbc:mysql://mysql:3306/sample
     username: root
+    password: rootpassword
     driver-class-name: com.mysql.cj.jdbc.Driver
-server:
-  port: 8080
+
 kafka:
   cluster1:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: kafka1:9092
   cluster2:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: kafka2:9093

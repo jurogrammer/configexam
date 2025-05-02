@@ -10,7 +10,11 @@ class TestController(
 
     @GetMapping("/test")
     fun propertyChange(): String {
-        return switchableProperties.featureOn
+        return if (switchableProperties.featureOn) {
+            "Feature is ON"
+        } else {
+            "Feature is OFF"
+        }
     }
 }
 

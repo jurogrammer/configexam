@@ -9,10 +9,8 @@ spring:
         jdbc:
           sql: SELECT property_key, property_value FROM properties WHERE application = ? AND profile=? AND label=?
           order: 0
-          enabled: true
   datasource:
-    url: jdbc:mysql://localhost:3306/sample
+    url: jdbc:mysql://mysql:3306/sample
     username: root
+    password: rootpassword
     driver-class-name: com.mysql.cj.jdbc.Driver
-server:
-  port: 8080

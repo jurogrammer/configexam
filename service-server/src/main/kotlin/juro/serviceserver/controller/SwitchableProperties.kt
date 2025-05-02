@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 
 @ConfigurationProperties(prefix = "switchable")
 class SwitchableProperties {
-    lateinit var featureOn: String
+    var featureOn: Boolean = false
     lateinit var someBaseUrl: String
     lateinit var kafkaBootstrapServer: String
 }
