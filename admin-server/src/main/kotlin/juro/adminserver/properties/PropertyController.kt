@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 
@@ -37,6 +38,26 @@ class PropertyController(
     @DeleteMapping("/v1/properties/{id}")
     fun deleteProperty(@PathVariable id: Long) {
         propertyService.deleteProperty(id)
+    }
+
+    // for test
+    @GetMapping("/v1/properties/by-composite-key")
+    fun getPropertyByCompositeKey(
+        @RequestParam application: String,
+        @RequestParam deployPhase: String,
+        @RequestParam propertyKey: String
+    ): PropertyResponse {
+        return propertyService.getByApplicationAndDeployPhaseAndPropertyKey(application = application, deployPhase = deployPhase, propertyKey = propertyKey)
+    }
+
+    // for test
+    @DeleteMapping("/v1/properties/by-composite-key")
+    fun deletePropertyByCompositeKey(
+        @RequestParam application: String,
+        @RequestParam deployPhase: String,
+        @RequestParam propertyKey: String
+    ) {
+        return propertyService.deleteByApplicationAndDeployPhaseAndPropertyKey(application = application, deployPhase = deployPhase, propertyKey = propertyKey)
     }
 
     @PostMapping("/v1/properties/refresh")

@@ -67,6 +67,28 @@ class PropertyService(
         return repository.findAllByDeployPhaseAndPropertyKey(deployPhase, LogicSwitchConstants.VERSION_PROPERTY_KEY)
     }
 
+
+    fun getByApplicationAndDeployPhaseAndPropertyKey(
+        application: String,
+        deployPhase: String,
+        propertyKey: String
+    ): PropertyResponse {
+        val property = repository.findByApplicationAndDeployPhaseAndPropertyKey(application, deployPhase, propertyKey)
+            ?: throw IllegalArgumentException("Property not found. application=$application, deployPhase=$deployPhase, propertyKey=$propertyKey")
+        return PropertyResponse.of(property)
+    }
+
+    fun deleteByApplicationAndDeployPhaseAndPropertyKey(
+        application: String,
+        deployPhase: String,
+        propertyKey: String
+    ) {
+        val id = repository.findByApplicationAndDeployPhaseAndPropertyKey(application, deployPhase, propertyKey)?.id
+        if (id != null) {
+            deleteProperty(id)
+        }
+    }
+
     private fun updateVersion(application: String, deployPhase: String) {
         val find = repository.findByApplicationAndDeployPhaseAndPropertyKey(application, deployPhase, LogicSwitchConstants.VERSION_PROPERTY_KEY)
         if (find == null) {

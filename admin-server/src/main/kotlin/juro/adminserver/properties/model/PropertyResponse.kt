@@ -4,7 +4,7 @@ import java.time.Instant
 
 
 data class PropertyResponse(
-    val id: String,
+    val id: Long,
     val application: String,
     val deployPhase: String,
     val propertyKey: String,

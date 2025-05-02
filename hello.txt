@@ -1,0 +1,39 @@
+시나리오5
+쉘 스크립트 명:script-scenario_3-kafka1_down.sh
+
+초기화 단계
+1. property 삭제
+2. refresh 수행
+POST http://localhost:8081/v1/properties/refresh
+Content-Type: application/json
+{
+  "application": "application",
+  "deployPhase": "local"
+}
+3. feature-on-status 상태 확인
+GET http://localhost:8080/feature-on-status 요청시 Feature is OFF 받아야 함
+
+테스트 단계
+1. property 생성
+ POST http://localhost:8081/v1/properties
+ Content-Type: application/json
+
+ {
+   "application": "application",
+   "deployPhase": "local",
+   "propertyKey": "switchable.feature-on",
+   "propertyValue": "true",
+   "description": "test feature"
+ }
+
+2. refresh 수행
+POST http://localhost:8081/v1/properties/refresh
+Content-Type: application/json
+
+{
+  "application": "application",
+  "deployPhase": "local"
+}
+
+3. feature-on-status 상태 확인
+GET http://localhost:8080/feature-on-status 요청시 Feature is ON 받아야 함

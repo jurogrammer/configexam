@@ -1,5 +1,5 @@
 ### view service-server property value
-GET http://localhost:8080/test
+GET http://localhost:8080/feature-on-status
 
 ### [admin-server] create property
 POST http://localhost:8081/v1/properties
@@ -9,7 +9,7 @@ Content-Type: application/json
   "application": "application",
   "deployPhase": "local",
   "propertyKey": "switchable.feature-on",
-  "propertyValue": "true",
+  "propertyValue": "false",
   "description": "test feature"
 }
 
@@ -21,10 +21,12 @@ Content-Type: application/json
   "application": "application",
   "deployPhase": "local",
   "propertyKey": "switchable.feature-on",
-  "propertyValue": "false",
+  "propertyValue": "true",
   "description": "test feature"
-
 }
+
+### [admin-server] delete property
+DELETE http://localhost:8081/v1/properties/1
 
 ### [admin-server] refresh module
 POST http://localhost:8081/v1/properties/refresh
@@ -34,3 +36,7 @@ Content-Type: application/json
   "application": "application",
   "deployPhase": "local"
 }
+
+
+###
+DELETE http://localhost:8081/v1/properties/by-composite-key?application=application&deployPhase=local&propertyKey=switchable.feature-on

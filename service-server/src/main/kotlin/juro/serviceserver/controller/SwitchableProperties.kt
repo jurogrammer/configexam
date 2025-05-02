@@ -6,5 +6,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 class SwitchableProperties {
     var featureOn: Boolean = false
     lateinit var someBaseUrl: String
-    lateinit var kafkaBootstrapServer: String
+    lateinit var testKafkaStreamServer: String
 }

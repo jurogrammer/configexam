@@ -9,7 +9,7 @@ import java.time.Instant
 @Table("properties")
 class Property(
     @field:Id
-    var id: String?,
+    var id: Long?,
     var application: String,
     @Column("profile")
     var deployPhase: String,
