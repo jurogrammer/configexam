@@ -4,6 +4,7 @@ package juro.serviceserver.config.cloudconfig
 import com.naver.nspa.support.logicswitch.dto.PropertiesChangeEvent
 import io.github.oshai.kotlinlogging.KotlinLogging
 import juro.serviceserver.config.cloudconfig.constant.LogicSwitchConstants
+import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.springframework.beans.factory.annotation.Value
@@ -22,6 +23,7 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory
 import org.springframework.kafka.listener.CommonLoggingErrorHandler
 import org.springframework.kafka.listener.ContainerProperties
 import org.springframework.kafka.listener.KafkaMessageListenerContainer
+import java.time.Duration
 import java.util.*
 
 private val log = KotlinLogging.logger {}
@@ -82,10 +84,12 @@ class LogicSwitchConfig(
     private fun consumerConfigs(kafkaProperties: KafkaProperties): Map<String, Any> {
         val config = HashMap<String, Any>()
 
-        KafkaPropertiesFactory.getKafkaConsumerProperties(kafkaProperties).entries.forEach { (key, value) ->
-            config[key.toString()] = value
-        }
-
+        config[ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG] = StringDeserializer::class.java
+        config[ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG] = StringDeserializer::class.java
+        config[CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG] = kafkaProperties.bootstrapServers
+        config[ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG] = Duration.ofSeconds(30).toMillis().toString()
+        config[ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG] = Duration.ofSeconds(5).toMillis().toString()
+        config[ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG] = Duration.ofSeconds(15).toMillis().toString()
         config[ConsumerConfig.RECONNECT_BACKOFF_MAX_MS_CONFIG] = 10000L
         config[ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG] = 3000L
         config[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = "latest"

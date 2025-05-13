@@ -12,7 +12,7 @@ private val log = KotlinLogging.logger {}
 
 class Refresher(
     private val refreshScope: RefreshScope,
-    private val contextRefresher: LegacyContextRefresher,
+    private val contextRefresher: LegacyContextRefresher, // 레거시 아님 https://github.com/spring-cloud/spring-cloud-config/issues/2244#issuecomment-1499198434
     private val ac: ConfigurableApplicationContext,
 ) {
 

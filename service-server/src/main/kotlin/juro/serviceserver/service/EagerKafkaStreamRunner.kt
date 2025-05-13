@@ -3,7 +3,7 @@ package juro.serviceserver.service
 import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.annotation.PostConstruct
 import juro.serviceserver.config.cloudconfig.annotation.ConditionalOnRefresh
-import juro.serviceserver.controller.SwitchableProperties
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -13,19 +13,21 @@ private val log = KotlinLogging.logger {}
 
 @Component
 @ConditionalOnRefresh(propertyPrefixes = ["switchable.test-kafka-stream-server"], eagerLoading = true)
-class EagerKafkaStreamRunner(
-    private val properties: SwitchableProperties
-) {
+class EagerKafkaStreamRunner {
     private lateinit var startAt: ZonedDateTime
+
+    @Value("\${switchable.test-kafka-stream-server}")
+    private lateinit var testKafkaStreamServer: String
 
     companion object {
         private val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        private val SEOUL_ZONE_ID = ZoneId.of("Asia/Seoul")
     }
 
     @PostConstruct
     fun start() {
-        startAt = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
-        log.info { "Starting EagerKafkaStreamRunner. bootstrapServer=${properties.testKafkaStreamServer}, startAt=$startAt" }
+        startAt = ZonedDateTime.now(SEOUL_ZONE_ID)
+        log.info { "Starting EagerKafkaStreamRunner. bootstrapServer=${this.streamServer()}, startAt=${this.startAt()}" }
     }
 
     fun startAt(): String {
@@ -33,7 +35,7 @@ class EagerKafkaStreamRunner(
     }
 
     fun streamServer(): String {
-        return properties.testKafkaStreamServer
+        return testKafkaStreamServer
     }
 }
 

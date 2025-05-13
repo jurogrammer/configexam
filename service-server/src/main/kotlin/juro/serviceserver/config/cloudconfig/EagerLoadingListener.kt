@@ -40,7 +40,7 @@ class EagerLoadingListener(
     }
 
     // 임의 메서드 호출해서 이니셜 라이즈 유도
-    private fun initialize(kafkaStreamsBean: Any) {
-        kafkaStreamsBean.toString()
+    private fun initialize(bean: Any) {
+        bean.toString()
     }
 }

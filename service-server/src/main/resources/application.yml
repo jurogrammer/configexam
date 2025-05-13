@@ -4,7 +4,6 @@ spring:
 
 switchable:
   feature-on: false
-  some-base-url: http://localhost:8082
   test-kafka-stream-server: localhost:9092
 kafka:
   cluster1:
